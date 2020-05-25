@@ -17,7 +17,7 @@ S_total <- merge(x = S104, y = S107, by = "大職業別")
 colnames(S_total) <- gsub('x', '104' ,colnames(S_total))
 colnames(S_total) <- gsub('y', '107' ,colnames(S_total))
 
-
+is.numeric(S104$`經常性薪資-薪資`)
 
 
 #-------------------------------第一題-----------------------------------------
