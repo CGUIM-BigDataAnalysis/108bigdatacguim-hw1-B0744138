@@ -30,16 +30,16 @@ Ans_1 <- S_total%>%
 
 
 Ans_1_a <- Ans_1%>%
-  mutate(`平均大學薪資` = Ans_1$`大學-薪資.107`/Ans_1$`大學-薪資.104`)%>%
+  mutate(`成長率` = Ans_1$`大學-薪資.107`/Ans_1$`大學-薪資.104`)%>%
   filter(`大學-薪資.107`>`大學-薪資.104`) %>%
-  arrange(desc(平均大學薪資))
+  arrange(desc(成長率))
 
 
 Ans_1_b <- Ans_1_a %>%
-  filter(平均大學薪資 >1.05)%>%
-  select(`大職業別`,平均大學薪資)%>%
-  arrange(desc(平均大學薪資))
-
+  filter(成長率 >1.05)%>%
+  select(`大職業別`,成長率)%>%
+  arrange(desc(成長率))
+Ans_1_b[ ,1]
 
 Ans_1_c <- table(sapply( (strsplit (Ans_1_b$大職業別,"-") ), "[" ,  1))
 View(sort(Ans_1_c, decreasing = T))
@@ -95,10 +95,19 @@ Ans_3 <- Ans_3[-grep("其他+",Ans_3$大職業別,value=F), ]
 
 #------------------------------第四題-----------------------------------------
 
+Ans_4 <- S_total%>%
+  select(`大職業別`,`大學-薪資.107`,`研究所-薪資.107`)%>%
+  subset(`大學-薪資.107` != "—")%>%
+  subset(`研究所-薪資.107` != "—")%>%
+  mutate(`大學-薪資.107` = as.numeric(`大學-薪資.107`),
+         `研究所-薪資.107` = as.numeric(`研究所-薪資.107`))
 
-grep("資訊+",S_total$大職業別,value=T)
+
+Ans_4_a <- Ans_4[grep("資+",Ans_4$大職業別,value=F), ]
 
 
+Ans_4_b <- Ans_4_a%>%
+  mutate(`薪資差` = `研究所-薪資.107`-`大學-薪資.107`)
 
 
 
